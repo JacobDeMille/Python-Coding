@@ -1,0 +1,43 @@
+import random
+from random import randint
+print("Welcome to the number guessing game!")
+
+def random_seed():
+  seed = input("Enter random seed: ")
+  print("")
+  random.seed(seed)
+
+random_seed()
+def guessing_game():
+  playing = True
+  start = True
+  while playing:
+    number = randint(1, 100)
+    total_guess = 1
+    while start:
+      guess = int(input("Please enter a guess: "))
+      if guess > number:
+        print("Lower")
+        print("")
+      elif guess < number:
+        print("Higher")
+        print("")
+      elif guess == number:
+        print("Congratulations. You guessed it!")
+        print("It took you {} guesses." .format(total_guess))
+        print("")
+        start = False
+      else:
+        print("That is not a number!")
+      total_guess = total_guess + 1
+  
+    continue_playing = input("Would you like to play again (yes/no)? ")
+    continue_playing = continue_playing.lower()
+    if continue_playing == "yes":
+      print("")
+      start = True
+    else:
+      print("Thank you. Goodbye.")
+      playing = False
+      
+      guessing_game()

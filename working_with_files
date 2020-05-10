@@ -1,0 +1,78 @@
+# Here we prompt the user for a file to open 
+def prompt_filename():
+    filename = input("Please enter the data file: ")
+    return filename
+
+# This function will take the filname variable from the prompt_filename funtion. 
+def column_rate(filename):
+    with open(filename) as f:
+        next(f)
+        num_rows = 0
+        comm_avg = float(0)
+        """ This for loop will loop through the comm_rate column and
+        add to the num_rows to keep track of how many lines there are,
+        add the values to the comm_avg variable to store the sum of all 
+        values and use those variables to find the mean.
+        """
+        for line in f:
+            comm_rate = line.split(",")[6]
+            num_rows += 1
+            comm_total = float(comm_rate)
+            comm_avg = comm_total + comm_avg
+        mean = comm_avg / num_rows
+    return mean
+
+""" The functions for highest and lowest do the same thing. I made two different functions
+because I could not get it to work by doing it at the same time. Once the function finds the
+comm_rate that is higher, it stores it in high_rate and stores the line in the highest_comp 
+variable. The highest_comp variable is in the format that is needed for the output using sting 
+formating.
+"""
+def highest_rate(filename):
+    with open(filename) as f:
+        next(f)
+        high_rate = float(0)
+        highest_comp = ()
+        for line in f:
+            comm_rate = float(line.split(",")[6])
+            if comm_rate > high_rate:
+                high_rate = comm_rate
+                comm_rate = line.split(",")
+                highest_comp = ("{} ({}, {}) - ${}".format(comm_rate[2], comm_rate[0], comm_rate[3], comm_rate[6]))
+    return highest_comp
+
+""" The lowest_rate function works on the same pattern as the function for highest_rate. 
+In order to get the function to return the line that came first if there is a tie I had 
+to return lowest_comp right after assigning the variables with the line info. I tried to 
+figure out how to do it so that it would complete the for loop but I could not figure it
+out. The program works but I know that it could be better. 
+"""
+def lowest_rate(filename):
+    with open(filename) as f:
+        next(f)
+        low_rate = float(0.0)
+        lowest_comp = ()
+        for line in f:
+            comm_rate = float(line.split(",")[6])
+            if comm_rate <= low_rate:
+                low_rate = comm_rate            
+                comm_rate = line.split(",")
+                lowest_comp = ("{} ({}, {}) - ${}.0".format(comm_rate[2], comm_rate[0], comm_rate[3], comm_rate[6]))
+                return lowest_comp
+
+""" I decided to use the main function to call all of the other functions and to 
+have it display all the information from the function calls. 
+"""
+def main():
+    filename = prompt_filename()
+    mean = column_rate(filename)
+    highest_comp = highest_rate(filename)
+    lowest_comp = lowest_rate(filename)
+    print("\nThe average commercial rate is: {}\n".format(mean))
+    print("The highest rate is:")
+    print(highest_comp)
+    print("\nThe lowest rate is:")
+    print(lowest_comp)
+
+if __name__ == "__main__":
+    main()

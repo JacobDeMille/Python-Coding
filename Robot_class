@@ -1,0 +1,85 @@
+# The first things that we need to do for this assignment is create a 
+# class and initialize the coordinates and fuel to thier respective values
+
+class Robot:
+
+    def __init__(self):
+        self.x = 10
+        self.y = 10
+        self.fuel = 100
+        
+        # The function for the status display is very straightforward, 
+        # as it is called we display the current values.   
+    def status(self):
+        print("({}, {}) - Fuel: {}".format(self.x, self.y, self.fuel))
+        
+# For the move function I had to seperate it into distinct functions for 
+# each possible directional movement. I also added in the functionality 
+# to have it check whether the fuel has been depleeted and to display a 
+# message saying that there is not enough fuel left.
+
+    def move_left(self):
+        if self.fuel < 5:
+            print("Insufficient fuel to perform action")
+        else:
+            self.fuel = self.fuel - 5
+            self.x = self.x - 1
+    def move_right(self):
+        if self.fuel < 5:
+            print("Insufficient fuel to perform action")
+        else:
+            self.fuel = self. fuel - 5
+            self.x = self.x + 1
+    def move_up(self):
+        if self.fuel < 5:
+            print("Insufficient fuel to perform action")
+        else:
+            self.fuel = self.fuel - 5
+            self.y = self.y - 1
+    def move_down(self):
+        if self.fuel < 5:
+            print("Insufficient fuel to perform action")
+        else:
+            self.fuel = self.fuel - 5
+            self.y = self.y + 1
+# The fire function works the exact same as the move function, checking the
+# fuel value and printing a message with insufficient fuel or pew pew if 
+# there is enough fuel
+    def fire(self):
+        if self.fuel < 15:
+            print("Insufficient fuel to perform action")
+        else:
+            print("Pew! Pew!")
+            self.fuel = self.fuel - 15
+# The prompt function is where we get the user created actions. 
+# Using a while statement we are able to keep the program running 
+# until the user inputs the "quit" command upon which the progam terminates
+    def prompt(self):
+        start = True
+        while start:
+            self.command = input("Enter command: ")
+            if self.command == "left":
+                self.move_left()
+            elif self.command == "right":
+                self.move_right()
+            elif self.command == "up":
+                self.move_up()
+            elif self.command == "down":
+                self.move_down()
+            elif self.command == "fire":
+                self.fire()
+            elif self.command == "status":
+                self.status()
+            elif self.command == "quit":
+                print("Goodbye.")
+                start = False
+
+
+# The main function is very simply, all that is needed is for a new object to 
+# be created and for it to than call the prompt function where everything is run after that.
+def main():
+    robo = Robot()
+    robo.prompt()
+
+if __name__=="__main__":
+    main()
